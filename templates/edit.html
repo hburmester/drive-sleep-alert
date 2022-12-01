@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>EDIT</h1>
+
+<div class="col-md-4 offset-md-4">
+
+    <div class="card card-body">
+
+        <form action = "/update/{{contacto.0}}", method="post">
+            <div class="form-group">
+                <!-- <label for="nombres">Nombres</label> -->
+                <input type="text" class="form-control" name="nombres" value="{{contacto.1}}">
+                <small id="emailHelp" class="form-text text-muted">Nombres</small>
+            </div>
+            <div class="form-group">
+                <!-- <label for="telefono">Telefono</label> -->
+                <input type="text" class="form-control" name="telefono" value="{{contacto.2}}">
+                <small id="emailHelp" class="form-text text-muted">Telefono</small>
+            </div>
+            <div class="form-group">
+                <!-- <label for="email">Email</label> -->
+                <input type="text" class="form-control" name="email" value="{{contacto.3}}">
+                <small id="emailHelp" class="form-text text-muted">Email</small>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">Save</button>      
+            </div>
+            <!-- <input type="text" name="nombres" placeholder="Nombres" value="{{contacto.1}}">
+            <input type="text" name="telefono" placeholder="Telefono" value="{{contacto.2}}">
+            <input type="text" name="email" placeholder="Email" value="{{contacto.3}}">
+            <button type="submit">Save</button>  -->
+            
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
