@@ -16,20 +16,20 @@ app.secret_key='mysecrectkey'
 @app.route('/')
 def index():
     cur = mysql.connection.cursor()
-    cur.execute('select * from contactos')
+    cur.execute('select * from incidentes')
     data = cur.fetchall()
-    return render_template('index.html',contactos=data)
+    return render_template('index.html',incidentes=data)
     # return 'Index - Diseño Software-UTEC'
 
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
     if request.method == 'POST':
-        nom = request.form['nombres']
-        tel = request.form['telefono']
-        email = request.form['email']
-        print('INSERT', id, nom, tel, email)
+        hor = request.form['hora']
+        ubi = request.form['ubicacion']
+        pla = request.form['placa']
+        print('INSERT', id, hor, ubi, pla)
         cur = mysql.connection.cursor()
-        cur.execute('insert into contactos(nombres,telefono,email) values(%s,%s,%s)', (nom, tel, email))
+        cur.execute('insert into incidentes(hora,ubicacion,placa) values(%s,%s,%s)', (hor, ubi, pla))
         mysql.connection.commit()
         flash('Contacto Insertado correctamente')
         return redirect(url_for('index'))
@@ -38,7 +38,7 @@ def add_contact():
 @app.route('/edit/<id>')
 def edit_contact(id):
     cur = mysql.connection.cursor()
-    cur.execute('select * from contactos where id = %s',{id})
+    cur.execute('select * from incidentes where id = %s',{id})
     data = cur.fetchall()
     print(data[0])
     return render_template('edit.html', contacto=data[0])
@@ -46,7 +46,7 @@ def edit_contact(id):
 @app.route('/delete/<string:id>')
 def delete_contact(id):
     cur = mysql.connection.cursor()
-    cur.execute('delete from contactos where id = {0}'.format(id))
+    cur.execute('delete from incidentes where id = {0}'.format(id))
     mysql.connection.commit()
     flash('Contacto Eliminado correctamente')
     return redirect(url_for('index'))
@@ -61,7 +61,7 @@ def update_contact(id):
         print('UPDATE', id, nom, tel, email)
         cur = mysql.connection.cursor()
         cur.execute("""
-            update contactos
+            update incidentes
             set nombres = %s,
                 telefono = %s,
                 email = %s
