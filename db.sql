@@ -26,8 +26,8 @@ create table conductores(
 
 create table incidencias(
 	id_incidencia int primary key auto_increment,
-	latitud float(20) not null,
-	longitud float(9) not null,
+	latitud float(10) not null,
+	longitud float(10) not null,
 	nombre varchar(20) not null,
 	apellido varchar(20) not null,
 	hora_infraccion varchar(20) not null,
