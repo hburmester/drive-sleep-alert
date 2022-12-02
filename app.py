@@ -34,10 +34,14 @@ def logout():
 
 @app.route('/login')
 def login():
-    if session['logged_nombre'] is not None:
-        return redirect('/conductores')
+    if 'logged_nombre' in session:
+        if session['logged_nombre'] is not None:
+            return redirect('/conductores')
+        else:
+            return render_template('login.html')
     else:
-        return render_template('login.html')
+        session['logged_nombre'] = None
+        return redirect('/login')
 
 @app.route('/login_val', methods=['POST'])
 def login_val():
