@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>EDIT</h1>
+
+<div class="col-md-4 offset-md-4">
+
+    <div class="card card-body">
+
+        <form action = "/update_conductores/{{conductores.0}}", method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombres" value="{{conductores.1}}">
+                <small id="emailHelp" class="form-text text-muted">Nombre</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="apellido" value="{{conductores.2}}">
+                <small id="emailHelp" class="form-text text-muted">Apellido</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="edad" value="{{conductores.3}}">
+                <small id="emailHelp" class="form-text text-muted">Edad</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="cantidad_incidencias" value="{{conductores.4}}">
+                <small id="emailHelp" class="form-text text-muted">Cantidad de incidencias</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="estatus_conductor" value="{{conductores.5}}">
+                <small id="emailHelp" class="form-text text-muted">Estatus del conductor</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="placa_camion" value="{{conductores.6}}">
+                <small id="emailHelp" class="form-text text-muted">Placa del camion</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombre_central" value="{{conductores.7}}">
+                <small id="emailHelp" class="form-text text-muted">Nombre de la central</small>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">Save</button>      
+            </div>
+            
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
