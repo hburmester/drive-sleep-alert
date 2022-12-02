@@ -3,7 +3,6 @@
 {% block body %}
 
 <div class="row">
-
     <div class="col-md-12">
         <table class="table table-striped table-bordered bg-white table-sm">
             <thead>
@@ -27,9 +26,16 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        
+            <form action="/add_conductor" method="post">
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">
+                    <a action="/add_conductor" class="text-light">Agregar conductor</a>
+                </button>      
+            </div>
+            </form>
         </table>
     </div>
+
 
 
 

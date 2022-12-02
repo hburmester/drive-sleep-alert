@@ -49,8 +49,13 @@ def conductores():
 @app.route('/add_conductor')
 def add_conductor():
     if session['logged_nombre'] is not None:
-        print(session['logged_nombre'])
-
+        cur = mysql.connection.cursor()
+        sentence = f"insert into conductores (nombre, apellido, edad, cantidad_incidencias, estatus_conductor, placa_camion) VALUES ('{nombre}', '{apellido}', {edad}, {n_incidencias}, {estatus}, '{placa}', '{session['logged_nombre']}');"
+        cur.execute(sentence)
+        mysql.connection.commit()
+        return redirect('/conductores')
+    else:
+        return redirect('login')
 
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
