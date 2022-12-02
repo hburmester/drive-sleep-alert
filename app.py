@@ -19,12 +19,25 @@ mysql = MySQL(app)
 
 app.secret_key='utec123'
 
+@app.route('/')
+def home():
+    return redirect('/login')
+
+@app.route('/logout')
+def logout():
+    if session['logged_nombre'] is not None:
+        session.clear()
+        session['logged_nombre'] = None
+        redirect('/login')
+    else:
+        redirect('/login')
+
 @app.route('/login')
 def login():
-    # if session['logged_nombre'] is not None:
-    #     redirect('/conductores')
-    # else:
-    return render_template('login.html')
+    if session['logged_nombre'] is not None:
+        redirect('/conductores')
+    else:
+        return render_template('login.html')
 
 @app.route('/login_val', methods=['POST'])
 def login_val():
