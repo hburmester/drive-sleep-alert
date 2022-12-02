@@ -20,7 +20,10 @@ app.secret_key='utec123'
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    if session['logged_nombre'] is not None:
+        redirect('/conductores')
+    else:
+        return render_template('login.html')
 
 @app.route('/login_val', methods=['POST'])
 def login_val():
@@ -42,6 +45,11 @@ def conductores():
     cur.execute('select * from conductores')
     data = cur.fetchall()
     return render_template('conductores.html', conductores=data)
+
+@app.route('/add_conductor')
+def add_conductor():
+    if session['logged_nombre'] is not None:
+        print(session['logged_nombre'])
 
 
 @app.route('/add_contact',methods=['POST'])
