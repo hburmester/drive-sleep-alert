@@ -1,25 +1,37 @@
-{% extends 'layout.html' %}
-
-{% block body %}
+{% extends 'layout.html' %} {% block body %}
 
 <div class="row">
-    <div class="col">
-        <h2>Iniciar sesión</h2>
-    </div>
-    
-    <div class="card card-body">
-        <form action="/login">
-            <div class="form-group">
-              <label for="formGroupExampleInput">Nombre</label>
-              <input name="name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de la empresa">
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput2">Contraseña</label>
-              <input name="password" type="password" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
-            </div>
-        </form>
-        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-    </div>
+  <div class="col">
+    <h2>Iniciar sesión</h2>
+  </div>
+
+  <div class="card card-body">
+    <form action="/login_val" method="post">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nombre</label>
+        <input
+          name="name"
+          type="text"
+          class="form-control"
+          id="formGroupExampleInput"
+          placeholder="Nombre de la empresa"
+        />
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Contraseña</label>
+        <input
+          name="password"
+          type="password"
+          class="form-control"
+          id="formGroupExampleInput2"
+          placeholder="Contraseña"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <a action="/login_val" class="text-light">Iniciar sesión</a>
+      </button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

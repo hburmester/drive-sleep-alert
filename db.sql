@@ -13,14 +13,15 @@ insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) val
 insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) values('Primax', 921321321, 'Paseo de la república 130', 'seguridad2', 0);
 insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) values('Mapfre', 921325621, 'Paseo de la república 240', 'seguridad3', 0);
 
-create table conductor(
+create table conductores(
 	id_conductor int primary key auto_increment,
 	nombre varchar(20) not null,
 	apellido varchar(20) not null,
-	edad int,
+	edad int not null,
 	cantidad_incidencias int not null,
-	estatus_conductor boolean,
-    placa_camion varchar(7) not null
+	estatus_conductor int not null,
+    placa_camion varchar(7) not null,
+	nombre_central varchar(20) not null
 );
 
 create table incidencias(
