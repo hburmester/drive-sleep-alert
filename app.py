@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
 import pymysql
 
@@ -13,13 +13,30 @@ mysql = MySQL(app)
 
 app.secret_key='mysecrectkey'
 
-@app.route('/')
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/index')
 def index():
     cur = mysql.connection.cursor()
     cur.execute('select * from incidentes')
     data = cur.fetchall()
-    return render_template('login.html',incidentes=data)
-    # return 'Index - Diseño Software-UTEC'
+    return render_template('index.html',incidentes=data)
+
+@app.route('/login_val')
+def login_val():
+    name = request.form['name']
+    clave = request.form['password']
+    cur = mysql.connection.cursor()
+    sentence = f"select * from centrales where nombre_central='{name}';"
+    cur.execute(sentence)
+    data = cur.fetchone()
+    if (clave == data[4]):
+        session.clear()
+        session['logged_nombre'] = name
+        return render_template('index.html')
+
 
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
