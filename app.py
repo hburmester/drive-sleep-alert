@@ -89,21 +89,22 @@ def delete_conductor(idCond):
     else:
         return redirect('/login')
 
-@app.route('/edit_conductor/<idCond>')
-def delete_conductor(idCond):
-    if session['logged_nombre'] is not None:
-        cur = mysql.connection.cursor()
-        name = request.form['name']
-        apellido = request.form['apellido']
-        edad = request.form['edad']
-        n_incidencias = request.form['cantidad_incidencias']
-        estatus = request.form['estatus_conductor']
-        sentence = f"update conductores set nombre = '{name}', apellido = '{apellido}', edad = {edad}, cantidad_incidencias = {n_incidencias}, estatus_conductor = {estatus} where id_conductor = {idCond};"
-        cur.execute(sentence)
-        mysql.connection.commit()
-        return redirect('/conductores')
-    else:
-        return redirect('/login')
+@app.route('/edit_conductor/<idCond>', methods=['POST'])
+def edit_conductor(idCond):
+    if request.method == 'POST':
+        if session['logged_nombre'] is not None:
+            cur = mysql.connection.cursor()
+            name = request.form['name']
+            apellido = request.form['apellido']
+            edad = request.form['edad']
+            n_incidencias = request.form['cantidad_incidencias']
+            estatus = request.form['estatus_conductor']
+            sentence = f"update conductores set nombre = '{name}', apellido = '{apellido}', edad = {edad}, cantidad_incidencias = {n_incidencias}, estatus_conductor = {estatus} where id_conductor = {idCond};"
+            cur.execute(sentence)
+            mysql.connection.commit()
+            return redirect('/conductores')
+        else:
+            return redirect('/login')
 
 
 @app.route('/add_contact',methods=['POST'])
@@ -119,12 +120,11 @@ def add_contact():
         flash('Contacto Insertado correctamente')
         return redirect(url_for('index'))
 
-    
 
 @app.route('/edit_cond/<id>')
-def edit_contact(id):
+def edit_cond(id):
     cur = mysql.connection.cursor()
-    sentence = f"select * from conductores where id_conductor = {id})"
+    sentence = f"select * from conductores where id_conductor = {id};"
     cur.execute(sentence)
     data = cur.fetchone()
     return render_template('edit_conductor.html', conductores=data)
