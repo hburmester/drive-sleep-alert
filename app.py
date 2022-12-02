@@ -78,6 +78,17 @@ def add_conductor():
         else:
             return redirect('/login')
 
+@app.route('/delete_conductor/<idCond>')
+def delete_conductor(idCond):
+    if session['logged_nombre'] is not None:
+        cur = mysql.connection.cursor()
+        sentence = f"delete from conductores where id_conductor = {idCond}"
+        cur.execute(sentence)
+        mysql.connection.commit()
+        return redirect('/conductores')
+    else:
+        return redirect('/login')
+
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
     if request.method == 'POST':
@@ -90,6 +101,7 @@ def add_contact():
         mysql.connection.commit()
         flash('Contacto Insertado correctamente')
         return redirect(url_for('index'))
+
     
 
 @app.route('/edit/<id>')
