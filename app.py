@@ -52,6 +52,8 @@ def login_val():
             session.clear()
             session['logged_nombre'] = name
             return redirect('/conductores')
+        else:
+            return redirect('/login')
 
 @app.route('/conductores')
 def conductores():
