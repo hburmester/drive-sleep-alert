@@ -55,11 +55,14 @@ def login_val():
 
 @app.route('/conductores')
 def conductores():
-    cur = mysql.connection.cursor()
-    cur.execute('select * from conductores')
-    data = cur.fetchall()
-    return render_template('conductores.html', conductores=data)
-
+    if session['logged_nombre'] is not None:
+        cur = mysql.connection.cursor()
+        cur.execute('select * from conductores')
+        data = cur.fetchall()
+        return render_template('conductores.html', conductores=data)
+    else:
+        return redirect('/login')
+        
 @app.route('/new_conductor')
 def new_conductor():
     return render_template('conductor_nuevo.html')
