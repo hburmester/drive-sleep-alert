@@ -18,7 +18,7 @@ def index():
     cur = mysql.connection.cursor()
     cur.execute('select * from incidentes')
     data = cur.fetchall()
-    return render_template('index.html',incidentes=data)
+    return render_template('login.html',incidentes=data)
     # return 'Index - Diseño Software-UTEC'
 
 @app.route('/add_contact',methods=['POST'])
