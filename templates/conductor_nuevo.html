@@ -2,11 +2,11 @@
 
 <div class="row">
   <div class="col">
-    <h2>Iniciar sesión</h2>
+    <h2>Llenar datos de conductor</h2>
   </div>
 
   <div class="card card-body">
-    <form action="/login_val" method="post">
+    <form action="/add_conductor" method="post">
       <div class="form-group">
         <label for="formGroupExampleInput">Nombre</label>
         <input
@@ -14,21 +14,41 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput"
-          placeholder="Nombre de la empresa"
+          placeholder="Nombre del conductor"
         />
       </div>
       <div class="form-group">
-        <label for="formGroupExampleInput2">Contraseña</label>
+        <label for="formGroupExampleInput">Apellido</label>
         <input
-          name="password"
-          type="password"
+          name="lname"
+          type="text"
+          class="form-control"
+          id="formGroupExampleInput"
+          placeholder="Apellido del conductor"
+        />
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Edad</label>
+        <input
+          name="edad"
+          type="number"
+          class="form-control"
+          id="formGroupExampleInput"
+          placeholder="Edad"
+        />
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Estado</label>
+        <input
+          name="estatus"
+          type="number"
           class="form-control"
           id="formGroupExampleInput2"
-          placeholder="Contraseña"
+          placeholder="Estado"
         />
       </div>
       <button type="submit" class="btn btn-primary">
-        <a action="/login_val" class="text-light">Iniciar sesión</a>
+        <a action="/add_conductor" class="text-light">Agregar conductor</a>
       </button>
     </form>
   </div>

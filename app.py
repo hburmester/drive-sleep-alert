@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
 import pymysql
+import random
 
 app = Flask(__name__)
 
@@ -20,10 +21,10 @@ app.secret_key='utec123'
 
 @app.route('/login')
 def login():
-    if session['logged_nombre'] is not None:
-        redirect('/conductores')
-    else:
-        return render_template('login.html')
+    # if session['logged_nombre'] is not None:
+    #     redirect('/conductores')
+    # else:
+    return render_template('login.html')
 
 @app.route('/login_val', methods=['POST'])
 def login_val():
@@ -46,16 +47,36 @@ def conductores():
     data = cur.fetchall()
     return render_template('conductores.html', conductores=data)
 
-@app.route('/add_conductor')
+@app.route('/new_conductor')
+def new_conductor():
+    return render_template('conductor_nuevo.html')
+
+@app.route('/add_conductor', methods=['POST'])
 def add_conductor():
-    if session['logged_nombre'] is not None:
-        cur = mysql.connection.cursor()
-        sentence = f"insert into conductores (nombre, apellido, edad, cantidad_incidencias, estatus_conductor, placa_camion) VALUES ('{nombre}', '{apellido}', {edad}, {n_incidencias}, {estatus}, '{placa}', '{session['logged_nombre']}');"
-        cur.execute(sentence)
-        mysql.connection.commit()
-        return redirect('/conductores')
-    else:
-        return redirect('login')
+    if request.method == 'POST':
+        if session['logged_nombre'] is not None:
+            nombre = request.form['name']
+            apellido = request.form['lname']
+            edad = request.form['edad']
+            estatus = request.form['estatus']
+            listaVocales = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+            placa = ""
+            for i in range(3):
+                valor = random.randint(0,25)
+                vocal = listaVocales[valor]
+                placa = placa + vocal
+            placa = placa + "-"
+            for i in range(3):
+                valor = str(random.randint(0,9))
+                placa = placa + valor
+            print(placa)
+            cur = mysql.connection.cursor()
+            sentence = f"insert into conductores (nombre, apellido, edad, cantidad_incidencias, estatus_conductor, placa_camion, nombre_central) values ('{nombre}', '{apellido}', {edad}, 0, {estatus}, '{placa}', '{session['logged_nombre']}');"
+            cur.execute(sentence)
+            mysql.connection.commit()
+            return redirect('/conductores')
+        else:
+            return redirect('/login')
 
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
