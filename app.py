@@ -89,11 +89,16 @@ def delete_conductor(idCond):
     else:
         return redirect('/login')
 
-@app.route('/edit/<idCond>')
-def delete_conductor():
+@app.route('/edit_conductor/<idCond>')
+def delete_conductor(idCond):
     if session['logged_nombre'] is not None:
         cur = mysql.connection.cursor()
-        sentence = f"delete from conductores where id_conductor = {idCond}"
+        name = request.form['name']
+        apellido = request.form['apellido']
+        edad = request.form['edad']
+        n_incidencias = request.form['cantidad_incidencias']
+        estatus = request.form['estatus_conductor']
+        sentence = f"update conductores set nombre = '{name}', apellido = '{apellido}', edad = {edad}, cantidad_incidencias = {n_incidencias}, estatus_conductor = {estatus} where id_conductor = {idCond};"
         cur.execute(sentence)
         mysql.connection.commit()
         return redirect('/conductores')
@@ -116,13 +121,13 @@ def add_contact():
 
     
 
-@app.route('/edit/<id>')
+@app.route('/edit_cond/<id>')
 def edit_contact(id):
     cur = mysql.connection.cursor()
-    cur.execute('select * from incidentes where id = %s',{id})
-    data = cur.fetchall()
-    print(data[0])
-    return render_template('edit.html', contacto=data[0])
+    sentence = f"select * from conductores where id_conductor = {id})"
+    cur.execute(sentence)
+    data = cur.fetchone()
+    return render_template('edit_conductor.html', conductores=data)
 
 @app.route('/delete/<string:id>')
 def delete_contact(id):
