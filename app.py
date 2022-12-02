@@ -159,10 +159,10 @@ def delete_inc(id):
 def sel_inc(id):
     if session['logged_nombre'] is not None:
         cur = mysql.connection.cursor()
-        sentence = f"select * from conductores where id_conductor = {id}"
+        sentence = f"select nombre from conductores where id_conductor = {id};"
         cur.execute(sentence)
-        conductor = cur.fetchone()
-        sentence = f"select * from incidencias where nombre = '{conductor[3]}';"
+        nombre = cur.fetchone()[0]
+        sentence = f"select * from incidencias where nombre = '{nombre}';"
         cur.execute(sentence)
         incidencias = cur.fetchall()
         return render_template('incidencias.html', incidencias = incidencias)
