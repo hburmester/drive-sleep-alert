@@ -130,22 +130,6 @@ def edit_cond(id):
     data = cur.fetchone()
     return render_template('edit_conductor.html', conductores=data)
 
-
-@app.route('/add_contact',methods=['POST'])
-def add_contact():
-    if request.method == 'POST':
-        hor = request.form['hora']
-        ubi = request.form['ubicacion']
-        pla = request.form['placa']
-        print('INSERT', id, hor, ubi, pla)
-        cur = mysql.connection.cursor()
-        cur.execute('insert into incidentes(hora,ubicacion,placa) values(%s,%s,%s)', (hor, ubi, pla))
-        mysql.connection.commit()
-        flash('Contacto Insertado correctamente')
-        return redirect(url_for('index'))
-
-
-
 @app.route('/delete/<string:id>')
 def delete_contact(id):
     cur = mysql.connection.cursor()
@@ -153,28 +137,6 @@ def delete_contact(id):
     mysql.connection.commit()
     flash('Contacto Eliminado correctamente')
     return redirect(url_for('index'))
-    
-
-@app.route('/update/<id>',methods=['POST'])
-def update_contact(id):
-    if request.method == 'POST':
-        nom = request.form['nombres']
-        tel = request.form['telefono']
-        email = request.form['email']
-        print('UPDATE', id, nom, tel, email)
-        cur = mysql.connection.cursor()
-        cur.execute("""
-            update incidentes
-            set nombres = %s,
-                telefono = %s,
-                email = %s
-            where id = %s
-        """,(nom, tel, email, id) )
-        mysql.connection.commit()
-        flash('Contacto actualizado correctamente')
-        return redirect(url_for('index'))
-
-
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
