@@ -12,9 +12,9 @@ app = Flask(__name__)
 # app.config['MYSQL_DB'] = 'contactos_db'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
+#app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'proyecto_cognitive'
-app.config['MYSQL_UNIX_SOCKET'] = '/Applications/MAMP/tmp/mysql/mysql.sock'
+#app.config['MYSQL_UNIX_SOCKET'] = '/Applications/MAMP/tmp/mysql/mysql.sock'
 mysql = MySQL(app)
 
 app.secret_key='utec123'
@@ -49,9 +49,11 @@ def login_val():
         name = request.form['name']
         clave = request.form['password']
         cur = mysql.connection.cursor()
-        sentence = f"select * from centrales where nombre='{name}';"
+        sentence = f"select * from centrales where nombre_central='{name}';"
         cur.execute(sentence)
         data = cur.fetchone()
+        print(data)
+        print(data[4])
         if (clave == data[4]):
             session.clear()
             session['logged_nombre'] = name

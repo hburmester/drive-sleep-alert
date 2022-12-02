@@ -9,9 +9,9 @@ create table centrales(
 	clave varchar(12) not null,
 	suma_incidencias int not null
 );
-insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) values('Prosegur', 987678654, 'Av. Velasco Astete 212', 'seguridad1', 0);
-insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) values('Primax', 921321321, 'Paseo de la república 130', 'seguridad2', 0);
-insert into centrales (nombre, telefono, direccion, clave, suma_incidencias) values('Mapfre', 921325621, 'Paseo de la república 240', 'seguridad3', 0);
+insert into centrales (nombre_central, telefono, direccion, clave, suma_incidencias) values('Prosegur', 987678654, 'Av. Velasco Astete 212', 'seguridad1', 0);
+insert into centrales (nombre_central, telefono, direccion, clave, suma_incidencias) values('Primax', 921321321, 'Paseo de la republica 130', 'seguridad2', 0);
+insert into centrales (nombre_central, telefono, direccion, clave, suma_incidencias) values('Mapfre', 921325621, 'Paseo de la republica 240', 'seguridad3', 0);
 
 create table conductores(
 	id_conductor int primary key auto_increment,
