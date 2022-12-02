@@ -28,17 +28,16 @@ def logout():
     if session['logged_nombre'] is not None:
         session.clear()
         session['logged_nombre'] = None
-        redirect('/login')
+        return redirect('/login')
     else:
-        redirect('/login')
+        return redirect('/login')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login')
 def login():
-    if request.method == 'POST':
-        if session['logged_nombre'] is not None:
-            redirect('/conductores')
-        else:
-            return render_template('login.html')
+    if session['logged_nombre'] is not None:
+        return redirect('/conductores')
+    else:
+        return render_template('login.html')
 
 @app.route('/login_val', methods=['POST'])
 def login_val():
