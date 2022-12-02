@@ -62,7 +62,7 @@ def conductores():
         return render_template('conductores.html', conductores=data)
     else:
         return redirect('/login')
-        
+
 @app.route('/new_conductor')
 def new_conductor():
     return render_template('conductor_nuevo.html')
@@ -122,6 +122,14 @@ def edit_conductor(idCond):
         else:
             return redirect('/login')
 
+@app.route('/edit_cond/<id>')
+def edit_cond(id):
+    cur = mysql.connection.cursor()
+    sentence = f"select * from conductores where id_conductor = {id};"
+    cur.execute(sentence)
+    data = cur.fetchone()
+    return render_template('edit_conductor.html', conductores=data)
+
 
 @app.route('/add_contact',methods=['POST'])
 def add_contact():
@@ -137,13 +145,6 @@ def add_contact():
         return redirect(url_for('index'))
 
 
-@app.route('/edit_cond/<id>')
-def edit_cond(id):
-    cur = mysql.connection.cursor()
-    sentence = f"select * from conductores where id_conductor = {id};"
-    cur.execute(sentence)
-    data = cur.fetchone()
-    return render_template('edit_conductor.html', conductores=data)
 
 @app.route('/delete/<string:id>')
 def delete_contact(id):
