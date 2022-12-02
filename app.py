@@ -130,13 +130,43 @@ def edit_cond(id):
     data = cur.fetchone()
     return render_template('edit_conductor.html', conductores=data)
 
-@app.route('/delete/<string:id>')
-def delete_contact(id):
-    cur = mysql.connection.cursor()
-    cur.execute('delete from incidentes where id = {0}'.format(id))
-    mysql.connection.commit()
-    flash('Contacto Eliminado correctamente')
-    return redirect(url_for('index'))
+@app.route('/incidencias')
+def incidencias():
+    if session['logged_nombre'] is not None:
+        cur = mysql.connection.cursor()
+        sentence = "select * from incidencias"
+        cur.execute(sentence)
+        incidencias = cur.fetchall()
+        return render_template('incidencias.html', incidencias=incidencias)
+    else:
+        return redirect('/login')
+
+@app.route('/delete_inc/<id>')
+def delete_inc(id):
+    if session['logged_nombre'] is not None:
+        cur = mysql.connection.cursor()
+        sentence = f"delete from incidencias where id_incidencia ={id}"
+        cur.execute(sentence)
+        mysql.connection.commit()
+        flash('Incidencia eliminada correctamente')
+        return redirect('/incidencias')
+    else:
+        return redirect('/login')
+
+@app.route('/sel_inc/<id>')
+def sel_inc(id):
+    if session['logged_nombre'] is not None:
+        cur = mysql.connection.cursor()
+        sentence = f"select * from conductores where id_conductor = {id}"
+        cur.execute(sentence)
+        conductor = cur.fetchone()
+        sentence = f"select * from incidencias where nombre = '{conductor[3]}';"
+        cur.execute(sentence)
+        incidencias = cur.fetchall()
+        return render_template('incidencias.html', incidencias = incidencias)
+    else:
+        redirect('/login')
+        
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
