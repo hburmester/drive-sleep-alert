@@ -5,16 +5,16 @@ import random
 
 app = Flask(__name__)
 
-# mysql database
-# app.config['MYSQL_HOST'] = 'db-proy.chgqdjgci8b3.us-east-1.rds.amazonaws.com'
-# app.config['MYSQL_USER'] = 'admin'
-# app.config['MYSQL_PASSWORD'] = '24102066'
-# app.config['MYSQL_DB'] = 'contactos_db'
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-#app.config['MYSQL_PASSWORD'] = 'root'
+
+app.config['MYSQL_HOST'] = 'dbproyecto.chgqdjgci8b3.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = '12345678'
 app.config['MYSQL_DB'] = 'proyecto_cognitive'
-#app.config['MYSQL_UNIX_SOCKET'] = '/Applications/MAMP/tmp/mysql/mysql.sock'
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = 'root'
+# app.config['MYSQL_DB'] = 'proyecto_cognitive'
+# app.config['MYSQL_UNIX_SOCKET'] = '/Applications/MAMP/tmp/mysql/mysql.sock'
 mysql = MySQL(app)
 
 app.secret_key='utec123'
@@ -52,8 +52,6 @@ def login_val():
         sentence = f"select * from centrales where nombre_central='{name}';"
         cur.execute(sentence)
         data = cur.fetchone()
-        print(data)
-        print(data[4])
         if (clave == data[4]):
             session.clear()
             session['logged_nombre'] = name
@@ -67,7 +65,15 @@ def conductores():
         cur = mysql.connection.cursor()
         cur.execute('select * from conductores')
         data = cur.fetchall()
-        return render_template('conductores.html', conductores=data)
+        n_incidencias = {}
+        #for i in data:
+        print(data)
+        print(data[0])
+        sentence = f"select * from incidencias where nombre = '{(data[0])[1]}';"
+        cur.execute(sentence)
+        incidencias = cur.fetchall()
+        n_incidencias[(data[0])[1]] = len(incidencias)
+        return render_template('conductores.html', conductores=data, n_incidencias = n_incidencias)
     else:
         return redirect('/login')
 
