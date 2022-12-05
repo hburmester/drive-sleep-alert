@@ -66,9 +66,6 @@ def conductores():
         cur.execute('select * from conductores')
         data = cur.fetchall()
         n_incidencias = {}
-        #for i in data:
-        print(data)
-        print(data[0])
         sentence = f"select * from incidencias where nombre = '{(data[0])[1]}';"
         cur.execute(sentence)
         incidencias = cur.fetchall()
