@@ -20,7 +20,7 @@
             <tbody>
                 {% for c in conductores %}
                 <tr>
-                    <td> 
+                    <td>
                         <a href="/sel_inc/{{ c.0 }}" class="btn btn-secondary">Incidencia -></a>
                     </td>
                     <td> {{ c.1 }} </td>
@@ -30,7 +30,7 @@
                     <td> {{ c.5 }} </td>
                     <td> {{ c.6 }} </td>
                     <td> {{ c.7 }} </td>
-                    <td> 
+                    <td>
                         <a href="/edit_cond/{{ c.0 }}" class="btn btn-secondary">Edit</a>
                         <a href="/delete_conductor/{{ c.0 }}" class="btn btn-danger btn-delete">Delete</a>
                     </td>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success btn-block">
                     <a action="/new_conductor" class="text-light">Agregar conductor</a>
-                </button>      
+                </button>
             </div>
             </form>
         </table>
