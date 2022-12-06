@@ -177,7 +177,7 @@ def sel_inc(id):
         return render_template('incidencias.html', incidencias = incidencias)
     else:
         redirect('/login')
-        
+
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
